@@ -76,9 +76,6 @@ On a different machine
 ```bash
 ssh Username@IP_Address
 ```
-here image 1   
-here image 2   
-here image 3   
 
 ## Git
 
@@ -104,6 +101,87 @@ sudo ufw allow ssh
 4.Check the status 
 ``` bash
 sudo ufw status
+```     
+
+On Cloud
+
+We will study about the deployment of website on EC2 instance using Apache and SSL configurations.
+This workshop aims to understand the concepts of Virtualization on cloud, running instances on cloud, knowledge about Elastic IP, SSL configurations.
+
+## Installation and Configuration
+For this project, we need to install and configure the following dependencies:  
+Git   
+Apache2 (HTTP Server)    
+CertBot apache   
+
+## Install Git   
+1. Install Git using the command below
+```bash
+ sudo yum install git
+```   
+
+
+## Apache2 (HTTP Server)
+1. Download the files
+```bash
+ sudo yum install httpd
+```
+2. Start the server
+```bash
+sudo systemctl start httpd
+```
+3. Enable the server
+```bash
+sudo systemctl enable httpd
+```
+4. Check the status for the service 
+```bash
+sudo systemctl status httpd
 ```
 
-here imag 4
+## Check your server  
+1. Go to your web browser and type the public IP address and the port.
+
+## Allocate Elastic IP address
+1. From the EC2 side dashboard, go to Elastic IP address and create a new Elastic IP.
+
+2. Allocate this IP address to the created EC2 instance.
+
+
+## Get your domain name 
+1. Visit the website- "https://www.getfreedomain.name/" to get a free domain name service.
+
+2. Use the Elastic IP address created before to route the domain name to the address.
+
+
+## Create SSL certificate for your DNS
+1. Create a virtual host configuration file:
+```bash
+ sudo nano /etc/httpd/conf.d/<DNS>.conf
+```
+2. Add the Virtual Host Configuration:Add the following configuration to the file:
+```bash
+<VirtualHost *:80>
+    ServerName virtualization.mooo.com
+    DocumentRoot /var/www/html
+
+    ErrorLog /var/log/httpd/virtualization.mooo.com-error.log
+    CustomLog /var/log/httpd/virtualization.mooo.com-access.log combined
+</VirtualHost>
+
+```
+3. Install Certbot with Apache plugin:
+```bash
+sudo yum install certbot-apache
+```
+4. Run CertBot with Apache Plugin
+```bash
+sudo certbot --apache
+```
+
+
+
+
+
+
+
